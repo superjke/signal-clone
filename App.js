@@ -4,7 +4,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import HomeScreen from "./screens/HomeScreen";
-import { initializeFirebase } from "./firebase";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "./firebaseConfig";
 
 const Stack = createStackNavigator();
 
@@ -14,7 +15,7 @@ const globalScreenOptions = {
   headerTintColor: "white",
 };
 
-initializeFirebase();
+initializeApp(firebaseConfig);
 
 export default function App() {
   return (
