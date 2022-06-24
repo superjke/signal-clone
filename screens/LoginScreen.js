@@ -2,7 +2,7 @@ import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Button, Input, Image } from "@rneui/base";
 import { StatusBar } from "expo-status-bar";
-import { getAuth } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -18,7 +18,17 @@ const LoginScreen = ({ navigation }) => {
     return unsubscribe;
   }, []);
 
-  const signIn = () => {};
+  const signIn = () => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((authUser) => {
+        console.log("Signed in");
+        console.log(authUser.user);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
