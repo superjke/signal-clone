@@ -6,15 +6,14 @@ import { getAuth } from "firebase/auth";
 
 const CustomListItem = ({ id, chatName, enterChat }) => {
   return (
-    <ListItem>
+    <ListItem onPress={() => enterChat(id, chatName)} key={id} bottomDivider>
       <Avatar rounded source={{ uri: getAuth().currentUser.photoURL }} />
       <ListItem.Content>
         <ListItem.Title style={{ fontWeight: "800" }}>
-          Youtube Chat
+          {chatName}
         </ListItem.Title>
         <ListItem.Subtitle numberOfLines={1} ellipsizeMode={"tail"}>
-          This is a subtitle This is a subtitle This is a subtitle This is a
-          subtitle
+          Hi...
         </ListItem.Subtitle>
       </ListItem.Content>
     </ListItem>

@@ -6,21 +6,45 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import CustomListItem from "../components/CustomListItem";
-import { Avatar } from "@rneui/base";
+import { Avatar, Image } from "@rneui/base";
 import { getAuth } from "firebase/auth";
 import { AntDesign, SimpleLineIcons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
+import { pages } from "../App";
+import { collection, getFirestore, getDocs } from "@firebase/firestore";
 
 const HomeScreen = ({ navigation }) => {
+  const [chats, setChats] = useState([]);
+
   const auth = getAuth();
 
   const signOut = () => {
     auth.signOut().then(() => {
-      navigation.replace("Login");
+      navigation.replace(pages.login);
     });
   };
+
+  useEffect(() => {
+    const getChats = async () => {
+      await getDocs(collection(getFirestore(), "chats")).then((snapshot) =>
+        setChats(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
+    };
+
+    getChats();
+    const willFocusSubscription = navigation.addListener("focus", () => {
+      getChats();
+    });
+
+    return willFocusSubscription;
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -60,25 +84,25 @@ const HomeScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
+  const enterChat = (id, chatName) => {
+    navigation.navigate(pages.chat, {
+      id,
+      chatName,
+    });
+  };
+
   return (
     <SafeAreaView>
       <StatusBar style="dark" />
-      <ScrollView>
-        <CustomListItem />
-        {/* <View style={styles.container}>
-          <Text style={styles.text}>{`Name: ${
-            getAuth().currentUser.displayName
-          }`}</Text>
-          <Text style={styles.text}>{`Email: ${
-            getAuth().currentUser.email
-          }`}</Text>
-          <Image
-            source={{
-              uri: getAuth().currentUser.photoURL,
-            }}
-            style={{ width: 200, height: 200 }}
+      <ScrollView style={styles.container}>
+        {chats.map(({ id, data: { chatName } }) => (
+          <CustomListItem
+            key={id}
+            id={id}
+            chatName={chatName}
+            enterChat={enterChat}
           />
-        </View> */}
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
@@ -88,11 +112,6 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    marginVertical: 20,
-  },
-  text: {
-    marginBottom: 10,
+    height: "100%",
   },
 });

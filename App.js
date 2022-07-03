@@ -7,6 +7,7 @@ import HomeScreen from "./screens/HomeScreen";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "./firebaseConfig";
 import AddChatScreen from "./screens/AddChatScreen";
+import ChatScreen from "./screens/ChatScreen";
 
 const Stack = createStackNavigator();
 
@@ -17,15 +18,23 @@ const globalScreenOptions = {
 };
 
 initializeApp(firebaseConfig);
+export const pages = {
+  home: "Home",
+  login: "Login",
+  register: "Register",
+  addChat: "AddChat",
+  chat: "Chat",
+};
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={globalScreenOptions}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="AddChat" component={AddChatScreen} />
+        <Stack.Screen name={pages.login} component={LoginScreen} />
+        <Stack.Screen name={pages.register} component={RegisterScreen} />
+        <Stack.Screen name={pages.home} component={HomeScreen} />
+        <Stack.Screen name={pages.addChat} component={AddChatScreen} />
+        <Stack.Screen name={pages.chat} component={ChatScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
