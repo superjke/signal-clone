@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { Button, Input } from "@rneui/base";
 import { AntDesign } from "@expo/vector-icons";
