@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import CustomListItem from "../components/CustomListItem";
-import { Avatar, Image } from "@rneui/base";
+import { Avatar } from "@rneui/base";
 import { getAuth } from "firebase/auth";
 import { AntDesign, SimpleLineIcons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
@@ -89,6 +89,8 @@ const HomeScreen = ({ navigation }) => {
       chatName,
     });
   };
+
+  console.log("HOME");
 
   return (
     <SafeAreaView>

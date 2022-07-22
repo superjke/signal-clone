@@ -71,7 +71,14 @@ const ChatScreen = ({ navigation, route }) => {
       headerBackTitleVisible: false,
       headerTitle: () => (
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Avatar rounded source={{ uri: getAuth().currentUser.photoURL }} />
+          <Avatar
+            rounded
+            source={{
+              uri:
+                messages[messages.length - 1]?.data.photoURL ||
+                "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
+            }}
+          />
           <Text style={{ color: "white", marginLeft: 10, fontWeight: "700" }}>
             {route.params.chatName}
           </Text>
@@ -103,7 +110,7 @@ const ChatScreen = ({ navigation, route }) => {
         </View>
       ),
     });
-  }, [navigation]);
+  }, [navigation, messages]);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <StatusBar style="light" />

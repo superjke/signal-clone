@@ -1,5 +1,5 @@
 import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Button, Input, Text } from "@rneui/base";
 import {
@@ -30,11 +30,14 @@ export default function RegisterScreen({ navigation }) {
             imageUrl ||
             "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
         });
-        console.log(authUser.user);
       })
       .catch((error) => {
         alert(error.message);
       });
+  };
+
+  const canRegister = () => {
+    return !name || !email || !password;
   };
 
   return (
@@ -79,6 +82,7 @@ export default function RegisterScreen({ navigation }) {
         onPress={register}
         containerStyle={styles.button}
         raised
+        disabled={canRegister()}
       />
       <View style={{ height: 100 }} />
     </KeyboardAvoidingView>

@@ -22,7 +22,6 @@ const LoginScreen = ({ navigation }) => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((authUser) => {
-        console.log("Signed in");
         console.log(authUser.user);
       })
       .catch((error) => {
