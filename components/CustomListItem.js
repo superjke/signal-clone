@@ -25,7 +25,6 @@ const CustomListItem = ({ id, chatName, enterChat }) => {
       const lastMessageData = querySnapshot.docs[0];
 
       if (lastMessageData !== undefined) {
-        console.log(JSON.stringify(lastMessageData.id));
         setLastMessage({
           id: lastMessageData.id,
           data: lastMessageData.data(),
@@ -36,7 +35,6 @@ const CustomListItem = ({ id, chatName, enterChat }) => {
     return unsubscribe;
   }, []);
 
-  console.log("CLI");
   return (
     <ListItem onPress={() => enterChat(id, chatName)} key={id} bottomDivider>
       <Avatar rounded source={{ uri: lastMessage?.data?.photoURL }} />

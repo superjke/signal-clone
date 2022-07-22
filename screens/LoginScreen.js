@@ -20,13 +20,9 @@ const LoginScreen = ({ navigation }) => {
 
   const signIn = () => {
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((authUser) => {
-        console.log(authUser.user);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+    signInWithEmailAndPassword(auth, email, password).catch((error) => {
+      alert(error.message);
+    });
   };
 
   return (

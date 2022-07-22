@@ -90,8 +90,6 @@ const HomeScreen = ({ navigation }) => {
     });
   };
 
-  console.log("HOME");
-
   return (
     <SafeAreaView>
       <StatusBar style="dark" />
